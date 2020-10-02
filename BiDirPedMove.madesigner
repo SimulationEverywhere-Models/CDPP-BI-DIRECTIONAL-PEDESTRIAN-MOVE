@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns="http://www.example.org/DEVSModeler" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.2/notation">
+  <CoupledModelType xmi:id="_RAUy0A19EeG4zsun_Bh7Lw" modelName="top" defined="true" sourceFileRelativePath="BiDirPedMove.ma">
+    <coupledModels xmi:type="CoupledModelInstance" xmi:id="_RAUy0Q19EeG4zsun_Bh7Lw" instanceName="PedestrianMovement">
+      <modelType xmi:type="CoupledModelType" xmi:id="_RAUy0g19EeG4zsun_Bh7Lw" modelName="PedestrianMovement"/>
+    </coupledModels>
+  </CoupledModelType>
+  <notation:Diagram xmi:id="_RAVZ4A19EeG4zsun_Bh7Lw" type="DEVS" element="_RAUy0A19EeG4zsun_Bh7Lw" name="BiDirPedMove.madesigner" measurementUnit="Pixel">
+    <styles xmi:type="notation:DiagramStyle" xmi:id="_RAVZ4Q19EeG4zsun_Bh7Lw"/>
+  </notation:Diagram>
+</xmi:XMI>

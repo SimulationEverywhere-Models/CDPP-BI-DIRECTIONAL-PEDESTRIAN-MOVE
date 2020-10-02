@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CDPlusPlus_Builder_Version_1.0.0>
+  <top>
+    <components> PedestrianMovement&#xd;</components>
+  </top>
+  <PedestrianMovement>
+    <type> cell&#xd;</type>
+    <width> 30&#xd;</width>
+    <height> 30&#xd;</height>
+    <delay> transport&#xd;</delay>
+    <defaultDelayTime> 400&#xd;</defaultDelayTime>
+    <border> wrapped&#xd;</border>
+    <neighbors> 						 PedestrianMovement(2,-1) PedestrianMovement(2,0) PedestrianMovement(2,1)&#xd;</neighbors>
+    <neighbors> 						 PedestrianMovement(1,-1) PedestrianMovement(1,0) PedestrianMovement(1,1)&#xd;</neighbors>
+    <neighbors> PedestrianMovement(0,-2) PedestrianMovement(0,-1) PedestrianMovement(0,0) PedestrianMovement(0,1) P</neighbors>
+    <neighbors> 						 PedestrianMovement(-1,-1) PedestrianMovement(-1,0) PedestrianMovement(-1,1)&#xd;</neighbors>
+    <neighbors> 						 PedestrianMovement(-2,-1) PedestrianMovement(-2,0) PedestrianMovement(-2,1)&#xd;</neighbors>
+    <comment>%%% state values %%%%&#xd;</comment>
+    <comment> 0 - cell unoccupied&#xd;</comment>
+    <comment> 1 - cell occupied with an up walker&#xd;</comment>
+    <comment> 2 - cell occupied with a down walker&#xd;</comment>
+    <comment> 3 - cell occupied with an obstacle&#xd;</comment>
+    <initialvalue> 0&#xd;</initialvalue>
+    <initialrowvalue>  0     000000000000000000000020000000&#xd;</initialrowvalue>
+    <initialrowvalue>  1     000003000000001000000000000100&#xd;</initialrowvalue>
+    <initialrowvalue>  2     000001000000000000003330000000&#xd;</initialrowvalue>
+    <initialrowvalue>  3     020000000030000002000000000000&#xd;</initialrowvalue>
+    <initialrowvalue>  4     000000000330000000000100000200&#xd;</initialrowvalue>
+    <initialrowvalue>  5     000000000300000000000000000300&#xd;</initialrowvalue>
+    <initialrowvalue>  6     000200000020000300000000030000&#xd;</initialrowvalue>
+    <initialrowvalue>  7     000000000000000200031000000000&#xd;</initialrowvalue>
+    <initialrowvalue>  8     003000000000000000000000000000&#xd;</initialrowvalue>
+    <initialrowvalue>  9     000000020000030000000000000000&#xd;</initialrowvalue>
+    <initialrowvalue>  10    000000010000330000000000000300&#xd;</initialrowvalue>
+    <initialrowvalue>  11    000000030000020000000000000000&#xd;</initialrowvalue>
+    <initialrowvalue>  12    000030000000000000000000100000&#xd;</initialrowvalue>
+    <initialrowvalue>  13    001000000200000010000000000002&#xd;</initialrowvalue>
+    <initialrowvalue>  14    000000000003000000003000000001&#xd;</initialrowvalue>
+    <initialrowvalue>  15    000000000000000100000000002000&#xd;</initialrowvalue>
+    <initialrowvalue>  16    330000003000000200000000300000&#xd;</initialrowvalue>
+    <initialrowvalue>  17    000000000010000003000000000033&#xd;</initialrowvalue>
+    <initialrowvalue>  18    000000000000000000000000000000&#xd;</initialrowvalue>
+    <initialrowvalue>  19    000200000000000000000001000000&#xd;</initialrowvalue>
+    <initialrowvalue>  20    000330001000000030000020000000&#xd;</initialrowvalue>
+    <initialrowvalue>  21    000300000000000000000000000000&#xd;</initialrowvalue>
+    <initialrowvalue>  22    000000000000002000000000000000&#xd;</initialrowvalue>
+    <initialrowvalue>  23    000000300000000000000003000001&#xd;</initialrowvalue>
+    <initialrowvalue>  24    000002000000000000000033000000&#xd;</initialrowvalue>
+    <initialrowvalue>  25    000000000000003000300000000000&#xd;</initialrowvalue>
+    <initialrowvalue>  26    000003000000003000002000003000&#xd;</initialrowvalue>
+    <initialrowvalue>  27    000001000000003000000010000000&#xd;</initialrowvalue>
+    <initialrowvalue>  28    000000000000000000100000000000&#xd;</initialrowvalue>
+    <initialrowvalue>  29    000000000000000000000000100000&#xd;</initialrowvalue>
+    <comment> Testing Setup&#xd;</comment>
+    <comment>initialrowvalue : 0 00000000&#xd;</comment>
+    <comment>initialrowvalue : 1 00032200&#xd;</comment>
+    <comment>initialrowvalue : 2 00000000&#xd;</comment>
+    <comment>initialrowvalue : 3 00001000&#xd;</comment>
+    <comment>initialrowvalue : 4 00200000&#xd;</comment>
+    <comment>initialrowvalue : 5 03130000&#xd;</comment>
+    <comment>initialrowvalue : 6 00000000&#xd;</comment>
+    <comment>initialrowvalue : 7 00000000&#xd;</comment>
+    <localtransition> PedestrianBehaviour&#xd;</localtransition>
+  </PedestrianMovement>
+  <PedestrianBehaviour>
+    <comment>%%% Rule 1 %%%%&#xd;</comment>
+    <comment> Move forward - up walkers&#xd;</comment>
+    <rule> 0 100 {(0,0)=1 and (-1,0)=0 and (-2,0)!=2}	 %the cell ahead is available and&#xd;</rule>
+    <rule> 1 100 {(0,0)=0 and (-1,0)!=2 and (1,0)=1}	 %the next cell is not a down walker&#xd;</rule>
+    <comment> Move forward - down walkers&#xd;</comment>
+    <rule> 0 100 {(0,0)=2 and (1,0)=0 and (2,0)!=1}&#xd;</rule>
+    <rule> 2 100 {(0,0)=0 and (1,0)!=1 and (-1,0)=2}&#xd;</rule>
+    <comment>%%% Rule 2 %%%%&#xd;</comment>
+    <comment> There is a walker/obstacle ahead, move right if another walker isn`t going to walk there&#xd;</comment>
+    <comment> up walker&#xd;</comment>
+    <rule> 0 100 {(0,0)=1 and (-1,0)!=0		% walker or obstacle is next cell ahead&#xd;</rule>
+    <comment> and the right side is available&#xd;</comment>
+    <comment> ensure down walker is not going for your cell&#xd;</comment>
+    <comment> ensure up walker is not going for your cell&#xd;</comment>
+    <rule> 1 100 {(0,0)=0 and (0,-1)=1		% move the up walker to the right&#xd;</rule>
+    <comment> there is an obstacle or walker in cell (-1,-1)&#xd;</comment>
+    <comment> ensure down walker is not going for that cell&#xd;</comment>
+    <comment> ensure up walker is not going for that cell&#xd;</comment>
+    <comment> down walker&#xd;</comment>
+    <rule> 0 100 {(0,0)=2 and (1,0)!=0		% walker or obstacle is next cell ahead&#xd;</rule>
+    <comment> and the right side is available&#xd;</comment>
+    <comment> ensure up walker is not going for your cell&#xd;</comment>
+    <comment> ensure down walker is not going for your cell&#xd;</comment>
+    <rule> 2 100 {(0,0)=0 and (0,1)=2		% move the down walker to the right&#xd;</rule>
+    <comment> there is an obstacle or walker in cell (1,1)&#xd;</comment>
+    <comment> ensure up walker is not going for that cell&#xd;</comment>
+    <comment> ensure down walker is not going for your cell&#xd;</comment>
+    <comment>%%% Rule 3 %%%%&#xd;</comment>
+    <comment> Walker/obstacle ahead and to the right, move to the left if another walker isn`t going to walk ther</comment>
+    <comment> up walker&#xd;</comment>
+    <rule> 0 100 {(0,0)=1 and (-1,0)!=0		% walker or obstacle is next cell ahead&#xd;</rule>
+    <comment> walker or obstacle is also to the right&#xd;</comment>
+    <comment> the left side is available&#xd;</comment>
+    <comment> ensure down walker is not going for left cell&#xd;</comment>
+    <comment> ensure up walker is not going for left cell&#xd;</comment>
+    <rule> 1 100 {(0,0)=0 and (0,1)=1		% move the up walker to the left&#xd;</rule>
+    <comment> there is an obstacle or walker in cell (-1,1)&#xd;</comment>
+    <comment> there is an obstacle or walker in cell (0,2) also&#xd;</comment>
+    <comment> ensure down walker is not going for that cell&#xd;</comment>
+    <comment> ensure up walker is not going for that cell&#xd;</comment>
+    <comment> down walker&#xd;</comment>
+    <rule> 0 100 {(0,0)=2 and (1,0)!=0		% walker or obstacle is next cell ahead&#xd;</rule>
+    <comment> and the right side is an obstacle or walker&#xd;</comment>
+    <comment> the left side is available&#xd;</comment>
+    <comment> ensure up walker is not going for left cell&#xd;</comment>
+    <comment> ensure down walker is not going for left cell&#xd;</comment>
+    <rule> 2 100 {(0,0)=0 and (0,-1)=2		% move the down walker to the right&#xd;</rule>
+    <comment> there is an obstacle or walker in cell (1,-1)&#xd;</comment>
+    <comment> there is an obstacle or walker in cell (0,-2) also&#xd;</comment>
+    <comment> ensure up walker is not going for that cell&#xd;</comment>
+    <comment> ensure down walker is not going for your cell&#xd;</comment>
+    <comment>%%% Rule 4 %%%%&#xd;</comment>
+    <comment> Avoid collision, move rig
